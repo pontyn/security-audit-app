@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:security_audit_app/pages/login_page.dart';
+import 'package:security_audit_app/pages/scan_results_page.dart';
 import 'package:security_audit_app/services/auth_service.dart';
 import 'package:security_audit_app/theme/app_theme.dart';
 
@@ -29,6 +30,11 @@ class _DashboardPageState extends State<DashboardPage> {
     if (!mounted) {
       return;
     }
+
+    Navigator.push(
+      context,
+      MaterialPageRoute<void>(builder: (_) => const ScanResultsPage()),
+    );
 
     setState(() {
       _isScanning = false;
