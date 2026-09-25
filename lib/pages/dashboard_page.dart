@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:security_audit_app/pages/assets_page.dart';
 import 'package:security_audit_app/pages/login_page.dart';
 import 'package:security_audit_app/pages/scan_results_page.dart';
 import 'package:security_audit_app/services/auth_service.dart';
@@ -90,6 +91,73 @@ class _DashboardPageState extends State<DashboardPage> {
             icon: const Icon(Icons.logout_rounded),
           ),
         ],
+      ),
+      drawer: Drawer(
+        backgroundColor: AppColors.panel,
+        child: SafeArea(
+          child: ListView(
+            padding: const EdgeInsets.all(16),
+            children: [
+              const DrawerHeader(
+                decoration: BoxDecoration(
+                  color: AppColors.primary,
+                  borderRadius: BorderRadius.all(Radius.circular(18)),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Icon(Icons.shield_rounded, size: 42, color: Colors.white),
+                    SizedBox(height: 12),
+                    Text(
+                      'Audit Sécurité',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 22,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              ListTile(
+                leading: const Icon(Icons.dashboard_rounded, color: AppColors.secondary),
+                title: const Text('Tableau de bord'),
+                onTap: () => Navigator.pop(context),
+              ),
+              ListTile(
+                leading: const Icon(Icons.router_rounded, color: AppColors.secondary),
+                title: const Text('Actifs réseau'),
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute<void>(builder: (_) => const NetworkAssetsPage()),
+                  );
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.search_rounded, color: AppColors.secondary),
+                title: const Text('Résultats du scan'),
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute<void>(builder: (_) => const ScanResultsPage()),
+                  );
+                },
+              ),
+              const Divider(color: Color(0xFF4A4F58)),
+              ListTile(
+                leading: const Icon(Icons.logout_rounded, color: AppColors.danger),
+                title: const Text('Déconnexion'),
+                onTap: () async {
+                  Navigator.pop(context);
+                  await _logout();
+                },
+              ),
+            ],
+          ),
+        ),
       ),
       body: SafeArea(
         child: Padding(
